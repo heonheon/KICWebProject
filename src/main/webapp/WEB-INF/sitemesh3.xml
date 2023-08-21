@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<sitemesh>
+	<!-- WEB-INF/sitemesh3.xml -->
+	<mapping path="/project/*" decorator="/layout/layout.jsp" ></mapping>
+	<mapping path="/workout/*" decorator="/layout/layout.jsp" ></mapping>
+	<mapping path="/diet/*" decorator="/layout/layout.jsp" ></mapping>
+	<mapping path="/body/*" decorator="/layout/layout.jsp" ></mapping>
+	<mapping path="/sns/*" decorator="/layout/layout.jsp"></mapping>
+	
+	<mapping path="*/pictureimgForm" exclude="true"></mapping>
+	<mapping path="*/picturePro" exclude="true"></mapping>
+	<mapping path="*/boardCommentPro" exclude="true"></mapping>
+	<mapping path="*/workoutMenu" exclude="true"></mapping>
+	<mapping path="*/workoutDeletePro" exclude="true"></mapping>
+	<mapping path="*/dietDeletePro" exclude="true"></mapping>
+	<mapping path="*/foodName" exclude="true"></mapping>
+	<mapping path="*/foodName2" exclude="true"></mapping>
+	<mapping path="*/snsCommentPro" exclude="true"></mapping>
+	<mapping path="*/snsComment" exclude="true"></mapping>	
+	<mapping path="*/commentDeletePro" exclude="true"></mapping>
+	<mapping path="*/heart" exclude="true"></mapping>
+</sitemesh>

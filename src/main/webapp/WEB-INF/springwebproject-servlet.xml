@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:mvc="http://www.springframework.org/schema/mvc" 
+   xmlns:context="http://www.springframework.org/schema/context" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<mvc:annotation-driven></mvc:annotation-driven>
+	<mvc:view-controller path="/home" view-name="home"/>
+	<mvc:resources location="/WEB-INF/view/project/imgs/" mapping="/view/project/imgs/**"></mvc:resources>
+	<mvc:resources location="/WEB-INF/view/sns/imgs/" mapping="/view/sns/imgs/**"></mvc:resources>
+	<!-- mapping은 url = project명/view/board/imgs/xxx가 들어오면 location에 있는 파일을 연결하라는 의미 -->
+	<context:component-scan base-package="controller, service"></context:component-scan>
+	<context:annotation-config></context:annotation-config>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<bean id="dataSource"
+      class="com.mchange.v2.c3p0.ComboPooledDataSource"
+      destroy-method="close">
+      <property name="driverClass">
+         <value>oracle.jdbc.OracleDriver</value>
+      </property>
+      <property name="jdbcUrl">
+         <value>jdbc:oracle:thin:@localhost:1521:xe</value>
+      </property>
+      <property name="user">
+         <value>kicproject</value>
+      </property>
+      <property name="password">
+         <value>1111</value>
+      </property>
+      <property name="maxPoolSize">
+         <value>20</value>
+      </property><!-- 최대 연결 객체 갯수 -->
+      <property name="minPoolSize">
+         <value>3</value>
+      </property> <!-- 최소 연결 객체 갯수 -->
+      <property name="initialPoolSize">
+         <value>5</value>
+      </property> <!-- 초기 연결 객체 갯수 -->
+      <property name="acquireIncrement">
+         <value>5</value>
+      </property> <!-- 연결 객체 증가 갯수 -->
+    </bean>
+	<!-- mybatis db -->
+	<bean id="sqlSessionFactory"
+      class="org.mybatis.spring.SqlSessionFactoryBean">
+      <property name="dataSource" ref="dataSource" /> 
+      <property name="configLocation"
+         value="classpath:mybatis/mybatis-config.xml" />
+      <!-- <property name="mapperLocations" value="classpath:mapper/*.xml"></property> -->
+   </bean>
+   <bean class="org.mybatis.spring.SqlSessionTemplate">
+      <constructor-arg ref="sqlSessionFactory" />
+   </bean>
+	
+ 	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/project/bodyInfo"/>
+			<mvc:mapping path="/project/deleteUser"/>
+			<mvc:mapping path="/project/passChangeForm"/>
+			<mvc:mapping path="/project/picturePro"/>
+			<mvc:mapping path="/project/profileUpdate"/>
+			<mvc:mapping path="/workout/workout"/>
+			<mvc:mapping path="/workout/workoutajax"/>
+			<mvc:mapping path="/workout/workoutInfo"/>
+			<mvc:mapping path="/workout/workoutMenu"/>
+			<mvc:mapping path="/sns/snsComment"/>
+			<mvc:mapping path="/diet/diet"/>
+			<mvc:mapping path="/diet/dietajax"/>
+			<mvc:mapping path="/diet/dietInfo"/>
+			<mvc:mapping path="/diet/foodName"/>
+			<mvc:mapping path="/body/bodyinfo"/>
+			<ref bean="login"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	<bean id="login" class="login.LoginUser"></bean>
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="utf-8"></property>
+	</bean>
+</beans>
