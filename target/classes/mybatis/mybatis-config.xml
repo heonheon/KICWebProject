@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>		
+	</settings>
+	<typeAliases>
+		<typeAlias type="model.BodyInfo" alias="body"/>
+		<typeAlias type="model.DietInfo" alias="diet"/>
+		<typeAlias type="model.UserInfo" alias="user"/>
+		<typeAlias type="model.WorkoutInfo" alias="workout"/>
+		<typeAlias type="model.WorkoutMenu" alias="workoutMenu"/>
+		<typeAlias type="model.SnsContent" alias="sns"/>
+		<typeAlias type="model.SnsComment" alias="snsComment"/>
+		<typeAlias type="model.Heart" alias="heart"/>
+	</typeAliases>
+	
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC"></transactionManager>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+				<property name="username" value="kicproject"/>
+				<property name="password" value="1111"/>
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper class="mybatis.UserAnno"/>
+		<mapper class="mybatis.WorkoutAnno"/>
+		<mapper class="mybatis.DietAnno"/>
+		<mapper class="mybatis.BodyAnno"/>
+		<mapper class="mybatis.SnsAnno"/>
+		<mapper class="mybatis.HeartAnno"/>
+	</mappers>
+</configuration>
