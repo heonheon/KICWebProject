@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 
+import model.Heart;
 import model.SnsComment;
 import model.SnsContent;
 
@@ -30,15 +31,12 @@ public interface SnsAnno {
 	@Insert("insert into snscomment values (commentseq.nextval, #{num}, #{id}, #{content}, sysdate)")
 	public int insertComment(Map map);
 	
-	@Select("select * from snscomment")
-	public List<SnsComment> commentList1();
-	
 	@Select("select * from snscomment where num = #{num} order by ser desc")
-	public List<SnsComment> commentList2(int num);
-	
-	@Select("select a.*,  b.* from snscontent a, snscomment b where a.num = b.num order by b.num desc, b.ser desc")
-	public List<SnsComment> commentList3();
+	public List<SnsComment> commentList(int num);
 	
 	@Delete("delete from snscomment where ser = #{ser}")
 	public int commentDelete(int ser);
+	
+	@Select("select * from heart where id = #{id}")
+	public List<Heart> checkHeart(String id);
 }	

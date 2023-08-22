@@ -28,7 +28,6 @@
     			xhttp.send();
 			}
 		}
-	
 	const xhttp = new XMLHttpRequest();
 	function startSuggest() {
 		setTimeout("sendKeyword()", 500);
@@ -49,7 +48,6 @@
 			listView.innerHTML = this.responseText
 		}
 	}
-	
 	function putPara(name) {
 		const url = "${pageContext.request.contextPath}/diet/foodName2?foodname="+name;
 		fetch(url)

@@ -53,11 +53,19 @@ public class SnsController {
 	public String snsContent(@SessionAttribute(value = "id", required = false) String userId, 
 			@RequestParam(value = "id", required = false) String searchUserId,
 			@RequestParam(value = "snsDate", required = false) String date) {
-		List<SnsContent> sns = snsDao.contentInfo(userId);
+		List<SnsContent> sns = null;
+		if(date == null || date == " ") {
+			sns = snsDao.contentInfo(userId);
+		} else {
+			sns = snsDao.contentInfo(userId, date);
+		}
 		List<SnsContent> UserSns = snsDao.contentInfo(searchUserId);
-		List<SnsContent> snsDay = snsDao.contentInfo(userId, date);
+		List<Heart> heart = snsDao.checkHeart(userId);
+		for (int i = 0; i < heart.size(); i++) {
+			System.out.println(heart.get(i));
+		}
+		model.addAttribute("heart", heart);
 		model.addAttribute("searchUserId", searchUserId);
-		model.addAttribute("snsDay", snsDay);
 		model.addAttribute("UserSns", UserSns);
 		model.addAttribute("sns", sns);
 		return "sns/snsContent";
@@ -187,7 +195,6 @@ public class SnsController {
 			heartDao.heartDelete(hiddenNum, userId);
 		}
 		int count = heartDao.heartCount(hiddenNum);
-		System.out.println(count);
 		model.addAttribute("num", hiddenNum);
 		model.addAttribute("count", count);
 		return "sns/heartCount";

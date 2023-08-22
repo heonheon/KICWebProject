@@ -136,7 +136,7 @@
 <!-- 게시글 -->
 <div class="container mt-4 justify-content-center">
   <div class="row justify-content-center">
-  	<c:forEach var="item" items="${snsDay }">
+  	<c:forEach var="item" items="${sns }">
   	<input type="hidden" value="${item.num}" name="commentNum">
     <div class="col-md-8 border mb-4">
       <div class="container justify-content-center">
@@ -200,19 +200,14 @@
         <div class="card-body">
           <p class="card-text">${item.content }</p>
           <div class="d-flex justify-content-between">
-	          <div>
-	          		<%-- <button class="btn btn-dark" onclick="heart(${item.num})" id="colorChangeButton">
-	          			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
-  							<path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2.376 2.376 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386Z"/>
-						</svg>
-	          		</button> --%>
+	          <div>  
 	          
-		          <button class="btn btn-danger" onclick="heart(${item.num})" id="colorChangeButton">
-		          	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
-		  				<path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2.376 2.376 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386Z"/>
-					</svg>
-					<span id="heartNumber${item.num }"></span>
-		          </button>
+		      <button class="btn btn-danger" onclick="heart(${item.num})" id="colorChangeButton">
+		        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-balloon-heart-fill" viewBox="0 0 16 16">
+		  			<path fill-rule="evenodd" d="M8.49 10.92C19.412 3.382 11.28-2.387 8 .986 4.719-2.387-3.413 3.382 7.51 10.92l-.234.468a.25.25 0 1 0 .448.224l.04-.08c.009.17.024.315.051.45.068.344.208.622.448 1.102l.013.028c.212.422.182.85.05 1.246-.135.402-.366.751-.534 1.003a.25.25 0 0 0 .416.278l.004-.007c.166-.248.431-.646.588-1.115.16-.479.212-1.051-.076-1.629-.258-.515-.365-.732-.419-1.004a2.376 2.376 0 0 1-.037-.289l.008.017a.25.25 0 1 0 .448-.224l-.235-.468ZM6.726 1.269c-1.167-.61-2.8-.142-3.454 1.135-.237.463-.36 1.08-.202 1.85.055.27.467.197.527-.071.285-1.256 1.177-2.462 2.989-2.528.234-.008.348-.278.14-.386Z"/>
+				</svg>
+				<span id="heartNumber${item.num }"></span>
+		      </button>
 	          </div>
 	          <button class="btn btn-dark" id="commentToggle${item.num }" onclick="commentLoad(${item.num})">
 	          	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat" viewBox="0 0 16 16">
@@ -329,17 +324,15 @@ function commentPro(num) {
 		}
 	}
 
-/* 이미지 추가 스크립트 */
+/* 이미지 추가 */
     const imageContainer = document.getElementById('imageContainer');
     const addImageButton = document.getElementById('addImageButton');
     const imageNamesInput = document.getElementById('imageFileNames'); 
     let imageCount = 0;
     let imageNames = [];
-
     function updateImageNames() {
     	document.getElementById('imageFileNames').value = imageNames.join(',');
     }
-
     function addInputWithPreview() {
       if (imageCount < 5) {
         const input = document.createElement('input');
@@ -361,14 +354,13 @@ function commentPro(num) {
               resetButton.className = 'btn btn-danger btn-sm mt-1';
               resetButton.addEventListener('click', function() {
                 img.parentNode.removeChild(img);
-                input.parentNode.removeChild(input); // Remove associated input
+                input.parentNode.removeChild(input);
                 resetButton.parentNode.removeChild(resetButton);
                 imageCount--;
                 imageNames = imageNames.filter(name => name !== file.name);
                 updateImageNames();
                 addImageButton.disabled = false;
               });
-
               const container = document.createElement('div');
               container.className = 'mb-2';
               container.appendChild(img);
@@ -378,21 +370,16 @@ function commentPro(num) {
               imageNames.push(file.name);
               alert(imageNames)
               //input.disabled = true;
-              
               addImageButton.disabled = imageCount >= 5;
             }
-
             reader.readAsDataURL(file);
           }
         });
-
         imageContainer.appendChild(input);
         addImageButton.disabled = true;
       }
     }
-	
     addImageButton.addEventListener('click', addInputWithPreview);
-    
     const imageForm = document.getElementById('imageForm');
     imageForm.addEventListener('submit', function(event) {
       updateImageNames();

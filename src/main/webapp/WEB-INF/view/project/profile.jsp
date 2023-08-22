@@ -84,7 +84,18 @@
                 <div class="progress-bar bg-black" role="progressbar" style="width: 100%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">${info.muscul }</div>
               </div>
               <br>
-              <a href="${pageContext.request.contextPath}/body/bodyinfo" class="btn btn-dark">신체 기록</a>
+              <c:choose>
+    			<c:when test="${not empty sessionScope.id and empty searchUserId}">
+        			<a href="${pageContext.request.contextPath}/body/bodyinfo" class="btn btn-dark">신체 기록</a>
+    			</c:when>
+    			<c:when test="${empty sessionScope.id and not empty searchUserId}">
+    			</c:when>
+    			<c:when test="${not empty sessionScope.id and not empty searchUserId and sessionScope.id == searchUserId}">
+        			<a href="${pageContext.request.contextPath}/body/bodyinfo" class="btn btn-dark">신체 기록</a>
+    			</c:when>
+				<c:otherwise>
+    			</c:otherwise>
+			  </c:choose>
             </div>
           </div>
           <br>
@@ -148,7 +159,18 @@
 			   </table>
             </div>
             <hr>
-            <a href="${pageContext.request.contextPath}/workout/workoutInfo" class="btn btn-dark">운동 기록</a>
+            <c:choose>
+    			<c:when test="${not empty sessionScope.id and empty searchUserId}">
+        			<a href="${pageContext.request.contextPath}/workout/workoutInfo" class="btn btn-dark">운동 기록</a>
+    			</c:when>
+    			<c:when test="${empty sessionScope.id and not empty searchUserId}">
+    			</c:when>
+    			<c:when test="${not empty sessionScope.id and not empty searchUserId and sessionScope.id == searchUserId}">
+        			<a href="${pageContext.request.contextPath}/workout/workoutInfo" class="btn btn-dark">운동 기록</a>
+    			</c:when>
+				<c:otherwise>
+    			</c:otherwise>
+			  </c:choose>
           </div>
         </div>
         <!-- 운동 기록 끝 -->
@@ -199,7 +221,18 @@
 				</tr>
 		</table>
             <hr>
-            <a href="${pageContext.request.contextPath}/diet/dietInfo" class="btn btn-dark">식단 기록</a>
+            <c:choose>
+    			<c:when test="${not empty sessionScope.id and empty searchUserId}">
+        			<a href="${pageContext.request.contextPath}/diet/dietInfo" class="btn btn-dark">식단 기록</a>
+    			</c:when>
+    			<c:when test="${empty sessionScope.id and not empty searchUserId}">
+    			</c:when>
+    			<c:when test="${not empty sessionScope.id and not empty searchUserId and sessionScope.id == searchUserId}">
+        			<a href="${pageContext.request.contextPath}/diet/dietInfo" class="btn btn-dark">식단 기록</a>
+    			</c:when>
+				<c:otherwise>
+    			</c:otherwise>
+			  </c:choose>
           </div>
         </div>
         <!-- 식단 기록 끝 -->

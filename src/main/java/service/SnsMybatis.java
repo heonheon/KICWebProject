@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import model.Heart;
 import model.SnsComment;
 import model.SnsContent;
 import mybatis.SnsAnno;
@@ -48,15 +49,15 @@ public class SnsMybatis {
 		return sqlSession.getMapper(SnsAnno.class).insertComment(map);
 	}
 	
-	public List<SnsComment> commentList() {
-		return sqlSession.getMapper(SnsAnno.class).commentList1();
-	}
-	
 	public List<SnsComment> commentList(int num) {
-		return sqlSession.getMapper(SnsAnno.class).commentList2(num);
+		return sqlSession.getMapper(SnsAnno.class).commentList(num);
 	}
 	
 	public int commentDelete(int ser) {
 		return sqlSession.getMapper(SnsAnno.class).commentDelete(ser);
+	}
+	
+	public List<Heart> checkHeart(String id) {
+		return sqlSession.getMapper(SnsAnno.class).checkHeart(id);
 	}
 }
