@@ -44,6 +44,7 @@
       		<a class="nav-link" href="${pageContext.request.contextPath}/sns/snsContent">SNS</a>
     	</div>
     </c:if>
+    <c:if test="${not empty sessionScope.id}">
     <div class="text-center d-flex flex-row" id="searchContainer">
       	<input type="text" class="form-control text-center" id="searchInput" placeholder="Enter user name" name="profileEmail">
       	<a class="btn btn-dark" href="#" id="searchToggleBtn" >
@@ -52,6 +53,7 @@
         	</svg>
       	</a>
     </div>
+    </c:if>
     <c:if test="${not empty sessionScope.id}">
 		<div class="navbar-nav">
       		<a class="nav-link" href="${pageContext.request.contextPath}/workout/workout">Workout</a>
