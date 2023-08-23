@@ -187,7 +187,7 @@
 	  </tr>
      </thead>
      <tbody>
-     	<c:forEach var="item" items="${dListDate }">
+     	<c:forEach var="item" items="${dList }">
      		<tr id="a${item.num }">
      	 		<td id="mealName">${item.mealType }</td>
      	 		<td>${item.foodName }</td>

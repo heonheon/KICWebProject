@@ -61,9 +61,6 @@ public class SnsController {
 		}
 		List<SnsContent> UserSns = snsDao.contentInfo(searchUserId);
 		List<Heart> heart = snsDao.checkHeart(userId);
-		for (int i = 0; i < heart.size(); i++) {
-			System.out.println(heart.get(i));
-		}
 		model.addAttribute("heart", heart);
 		model.addAttribute("searchUserId", searchUserId);
 		model.addAttribute("UserSns", UserSns);

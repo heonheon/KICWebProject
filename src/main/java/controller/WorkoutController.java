@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,12 +49,17 @@ public class WorkoutController {
 	public String workout(@SessionAttribute(value = "id", required = false) String userId, 
 			@RequestParam(value = "woDate", required = false) String date) {
 		UserInfo info = userDao.oneId(userId);
-		List<WorkoutInfo> woList = workoutDao.workoutInfoList(userId);
-		List<WorkoutInfo> woListDate = workoutDao.workoutInfoList(userId, date);
-		System.out.println(date);
+		List<WorkoutInfo> woList;
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDateStr = currentDate.format(formatter);
+		if(date == null || date == " ") {
+			woList = workoutDao.workoutInfoList(userId, currentDateStr);
+		} else {
+			woList = workoutDao.workoutInfoList(userId, date);
+		}
 		model.addAttribute("info", info);
 		model.addAttribute("woList", woList);
-		model.addAttribute("woListDate", woListDate);
 		model.addAttribute("date", date);
 		return "workout/workout";
 	}

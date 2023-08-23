@@ -1,5 +1,7 @@
 package controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,19 +47,26 @@ public class DietController {
 	public String diet(@SessionAttribute("id") String userId, @RequestParam(value = "mealDate", required = false) String date,
 			@RequestParam(value = "foodname", required = false) String keyword) {
 		UserInfo info = userDao.oneId(userId);
+		LocalDate currentDate = LocalDate.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        String currentDateStr = currentDate.format(formatter);
 		List<DietInfo> foodInfo = dietDao.foodinfo(keyword);
 		List<DietInfo> foodList = dietDao.dietInfoList();
-		List<DietInfo> dList = dietDao.dietInfoList(userId);
-		List<DietInfo> dListDate = dietDao.dietInfoList(userId, date);
+		List<DietInfo> dList;
+		if(date == null || date == " ") {
+			dList = dietDao.dietInfoList(userId, currentDateStr);
+		} else {
+			dList = dietDao.dietInfoList(userId, date);
+		}
 		double cartot = 0;
 		double protot = 0;
 		double fattot = 0;
 		double caltot = 0;
-		for (int i = 0; i < dListDate.size(); i++) {
-			cartot += dListDate.get(i).getCarbo();
-			protot += dListDate.get(i).getProtine();
-			fattot += dListDate.get(i).getFat();
-			caltot += dListDate.get(i).getCalorie();
+		for (int i = 0; i < dList.size(); i++) {
+			cartot += dList.get(i).getCarbo();
+			protot += dList.get(i).getProtine();
+			fattot += dList.get(i).getFat();
+			caltot += dList.get(i).getCalorie();
 		}
 		model.addAttribute("info", info);
 		model.addAttribute("foodInfo", foodInfo);
@@ -68,7 +77,6 @@ public class DietController {
 		model.addAttribute("date", date);
 		model.addAttribute("foodList", foodList);
 		model.addAttribute("dList", dList);
-		model.addAttribute("dListDate", dListDate);
 		return "diet/diet";
 	}
 	

@@ -167,7 +167,7 @@
 	  </tr>
      </thead>
      <tbody>
-     	<c:forEach var="item" items="${woListDate }">
+     	<c:forEach var="item" items="${woList }">
      		<tr id="a${item.num }">
      	 		<td>${item.woName }</td>
      	 		<td>${item.paraone }</td>
