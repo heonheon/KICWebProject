@@ -12,6 +12,14 @@ public class SnsContent {
 	String photo5;
 	String content;
 	Date contentDate;
+	int heart;
+	
+	public int getHeart() {
+		return heart;
+	}
+	public void setHeart(int heart) {
+		this.heart = heart;
+	}
 	public int getNum() {
 		return num;
 	}
@@ -70,8 +78,9 @@ public class SnsContent {
 	public String toString() {
 		return "SnsContent [num=" + num + ", id=" + id + ", photo1=" + photo1 + ", photo2=" + photo2 + ", photo3="
 				+ photo3 + ", photo4=" + photo4 + ", photo5=" + photo5 + ", content=" + content + ", contentDate="
-				+ contentDate + "]";
+				+ contentDate + ", heart=" + heart + "]";
 	}
+	
 	
 	
 }

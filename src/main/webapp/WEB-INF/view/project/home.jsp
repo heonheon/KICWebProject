@@ -22,13 +22,13 @@
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img src="https://via.placeholder.com/800x400?text=Slide+1" class="d-block w-100" alt="Slide 1">
+                <img src="https://kr.imboldn.com/wp-content/uploads/2020/02/Fitness-Feb-2020-main.jpg" class="d-block w-100" alt="Slide 1">
               </div>
               <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400?text=Slide+2" class="d-block w-100" alt="Slide 2">
+                <img src="https://img.marieclairekorea.com/2020/01/mck_5e27a977860df.jpg" class="d-block w-100" alt="Slide 2">
               </div>
               <div class="carousel-item">
-                <img src="https://via.placeholder.com/800x400?text=Slide+3" class="d-block w-100" alt="Slide 3">
+                <img src="http://www.sisajournal-e.com/news/photo/202003/215420_77721_2144.jpg" class="d-block w-100" alt="Slide 3">
               </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -43,7 +43,7 @@
       <div class="col-md-12">
         <p>Workout 페이지를 통해서 운동 계획을 만들고 기록으로 남기세요</p>
         <p>Diet 페이지를 통해서 식단을 관리해 앞으로의 식단 방향을 정해보세요</p>
-        <p>Profile 페이지에 Workout와 Diet의 기록이 나오니 다른 사용자들과 공유해 보세요</p>
+        <p>Profile과 SNS를 이용 다른 사용자들과 기록을 공유해 보세요</p>
         <p></p>
       </div>
     </div>

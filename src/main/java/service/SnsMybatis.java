@@ -57,7 +57,18 @@ public class SnsMybatis {
 		return sqlSession.getMapper(SnsAnno.class).commentDelete(ser);
 	}
 	
-	public List<Heart> checkHeart(String id) {
-		return sqlSession.getMapper(SnsAnno.class).checkHeart(id);
+	public List<SnsContent> checkHeart(String userId, String heartId) {
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("heartId", heartId);
+		return sqlSession.getMapper(SnsAnno.class).checkHeart(map);
+	}
+	
+	public List<SnsContent> checkHeart(String userId, String heartId, String snsDate) {
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("heartId", heartId);
+		map.put("contentdate", snsDate);
+		return sqlSession.getMapper(SnsAnno.class).checkHeart2(map);
 	}
 }

@@ -55,15 +55,15 @@ public class SnsController {
 			@RequestParam(value = "snsDate", required = false) String date) {
 		List<SnsContent> sns = null;
 		if(date == null || date == " ") {
-			sns = snsDao.contentInfo(userId);
+			sns = snsDao.checkHeart(userId, userId);;
 		} else {
-			sns = snsDao.contentInfo(userId, date);
+			sns = snsDao.checkHeart(userId, userId, date);;
 		}
-		List<SnsContent> UserSns = snsDao.contentInfo(searchUserId);
-		List<Heart> heart = snsDao.checkHeart(userId);
-		model.addAttribute("heart", heart);
+		System.out.println("-------------------------");
+		for (int i = 0; i < sns.size(); i++) {
+			System.out.println(sns.get(i));
+		}
 		model.addAttribute("searchUserId", searchUserId);
-		model.addAttribute("UserSns", UserSns);
 		model.addAttribute("sns", sns);
 		return "sns/snsContent";
 	}
@@ -171,11 +171,18 @@ public class SnsController {
 	@RequestMapping("searchSns")
 	public String searchSns(@SessionAttribute(value = "id", required = false) String userId, 
 			@RequestParam(value = "id", required = false) String searchUserId) {
-		List<SnsContent> sns = snsDao.contentInfo(userId);
-		List<SnsContent> UserSns = snsDao.contentInfo(searchUserId);
+		List<SnsContent> sns = snsDao.contentInfo(searchUserId);
+		List<SnsContent> test = snsDao.checkHeart(searchUserId, userId);
+		System.out.println("-------------------------");
+		for (int i = 0; i < sns.size(); i++) {
+			System.out.println(sns.get(i));
+		}
+		System.out.println("-------------------------");
+		for (int i = 0; i < test.size(); i++) {
+			System.out.println(test.get(i));
+		}
 		model.addAttribute("searchUserId", searchUserId);
-		model.addAttribute("UserSns", UserSns);
-		model.addAttribute("sns", sns);
+		model.addAttribute("sns", test);
 		return "sns/searchSns";
 	}
 	

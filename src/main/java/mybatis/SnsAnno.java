@@ -37,6 +37,9 @@ public interface SnsAnno {
 	@Delete("delete from snscomment where ser = #{ser}")
 	public int commentDelete(int ser);
 	
-	@Select("select * from heart where id = #{id}")
-	public List<Heart> checkHeart(String id);
+	@Select("select s.* , (select nvl(count(*),0) from heart where  id = #{heartId} and num = s.num ) heart from snscontent s where id = #{userId} order by num desc")
+	public List<SnsContent> checkHeart(Map map);
+	
+	@Select("select s.* , (select nvl(count(*),0) from heart where  id = #{heartId} and num = s.num ) heart from snscontent s where id = #{userId} AND TO_CHAR(s.contentdate, 'yyyy-mm-dd') = #{contentdate} order by num desc")
+	public List<SnsContent> checkHeart2(Map map);
 }	
