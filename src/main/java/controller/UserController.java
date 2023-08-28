@@ -2,6 +2,7 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -86,14 +87,12 @@ public class UserController {
 		if(num > 0) {
 			msg = userInfo.getName() + "님 가입 축하드립니다.";
 			url = "project/home";
+		} else if(idCheck.contains(request.getParameter("id"))) {
+			msg = "다른 아이디를 사용해 주세요.";
+			url = "project/signUpForm";
 		} else {
-			if(idCheck.contains(request.getParameter("id"))) {
-				msg = "다른 아이디를 사용해 주세요.";
-				url = "project/signUpForm";
-			} else {
-				msg = "회원 가입 실패했습니다.";
-				url = "project/signUpForm";
-			}
+			msg = "회원 가입 실패했습니다.";
+			url = "project/signUpForm";
 		}
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);
@@ -137,63 +136,37 @@ public class UserController {
 	@RequestMapping("profile")
 	public String profile(@SessionAttribute(value = "id", required = false) String userId,
 			@RequestParam(value = "id", required = false) String searchUserId) {
-		LocalDate nowDay = LocalDate.now();
-		LocalDate minusDay = nowDay.minusDays(1);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String today = nowDay.format(formatter);
-        String yesterday = minusDay.format(formatter);
-		UserInfo info = null;
-		List<WorkoutInfo> woListToday = null;
-		List<WorkoutInfo> woListYesterday = null;
-		List<DietInfo> dListToday = null;
-		double cartot = 0;
-		double protot = 0;
-		double fattot = 0;
-		double caltot = 0;
-		if(userId == null ) {
-			info = userDao.oneId(searchUserId);
-			woListToday = workoutDao.workoutInfoList(searchUserId, today);
-			woListYesterday = workoutDao.workoutInfoList(searchUserId, yesterday);
-			dListToday = dietDao.dietInfoList(searchUserId, today);
-			for (int i = 0; i < dListToday.size(); i++) {
-				cartot += dListToday.get(i).getCarbo();
-				protot += dListToday.get(i).getProtine();
-				fattot += dListToday.get(i).getFat();
-				caltot += dListToday.get(i).getCalorie();
-			}
-		} else if (userId != null && searchUserId != null ) {
-			info = userDao.oneId(searchUserId);
-			woListToday = workoutDao.workoutInfoList(searchUserId, today);
-			woListYesterday = workoutDao.workoutInfoList(searchUserId, yesterday);
-			dListToday = dietDao.dietInfoList(searchUserId, today);
-			for (int i = 0; i < dListToday.size(); i++) {
-				cartot += dListToday.get(i).getCarbo();
-				protot += dListToday.get(i).getProtine();
-				fattot += dListToday.get(i).getFat();
-				caltot += dListToday.get(i).getCalorie();
-			}
-		} else if (userId != null && searchUserId == null) {
-			info = userDao.oneId(userId);
-			woListToday = workoutDao.workoutInfoList(userId, today);
-			woListYesterday = workoutDao.workoutInfoList(userId, yesterday);
-			dListToday = dietDao.dietInfoList(userId, today);
-			for (int i = 0; i < dListToday.size(); i++) {
-				cartot += dListToday.get(i).getCarbo();
-				protot += dListToday.get(i).getProtine();
-				fattot += dListToday.get(i).getFat();
-				caltot += dListToday.get(i).getCalorie();
-			}
-		} 
-		model.addAttribute("searchUserId", searchUserId);
-		model.addAttribute("cartot", cartot);
-		model.addAttribute("protot", protot);
-		model.addAttribute("fattot", fattot);
-		model.addAttribute("caltot", caltot);
-		model.addAttribute("todayD", dListToday);
-		model.addAttribute("today", woListToday);
-		model.addAttribute("yesterday", woListYesterday);
-		model.addAttribute("info", info);
-		return "project/profile";
+	    UserInfo info = null;
+	    String targetUserId = (searchUserId != null) ? searchUserId : userId;
+	    List<WorkoutInfo> woListToday = null;
+	    List<WorkoutInfo> woListYesterday = null;
+	    List<DietInfo> dListToday = null;
+	    double cartot = 0;
+	    double protot = 0;
+	    double fattot = 0;
+	    double caltot = 0;
+	    if (targetUserId != null) {
+	        info = userDao.oneId(targetUserId);
+	        woListToday = workoutDao.workoutInfoList(targetUserId, LocalDate.now().toString());
+	        woListYesterday = workoutDao.workoutInfoList(targetUserId, LocalDate.now().minusDays(1).toString());
+	        dListToday = dietDao.dietInfoList(targetUserId, LocalDate.now().toString());
+	        for (DietInfo dietInfo : dListToday) {
+	            cartot += dietInfo.getCarbo();
+	            protot += dietInfo.getProtine();
+	            fattot += dietInfo.getFat();
+	            caltot += dietInfo.getCalorie();
+	        }
+	    }
+	    model.addAttribute("searchUserId", searchUserId);
+	    model.addAttribute("cartot", cartot);
+	    model.addAttribute("protot", protot);
+	    model.addAttribute("fattot", fattot);
+	    model.addAttribute("caltot", caltot);
+	    model.addAttribute("todayD", dListToday);
+	    model.addAttribute("today", woListToday);
+	    model.addAttribute("yesterday", woListYesterday);
+	    model.addAttribute("info", info);
+	    return "project/profile";
 	}
 	
 	@RequestMapping("profileUpdate")
@@ -212,6 +185,7 @@ public class UserController {
 			@RequestParam("picture") String picture) {
 		String msg = "로그인이 필요합니다.";
 		String url = "project/home";
+		DecimalFormat decimalFormat = new DecimalFormat("#.##");
 		double bmi = (Double.parseDouble(bodyweight)) / ((Double.parseDouble(bodyheight)) * (Double.parseDouble(bodyheight)) / 10000);
 		idUpdate.setId(userId);
 		idUpdate.setEmail(email);
@@ -223,7 +197,7 @@ public class UserController {
 		idUpdate.setBodyfat(bodyfat);
 		idUpdate.setMuscul(muscul);
 		idUpdate.setPicture(picture);
-		idUpdate.setBmi(String.format("%.2f", bodyInfo.getBmi()));
+		idUpdate.setBmi(String.valueOf(decimalFormat.format(bmi)));
 		bodyInfo.setId(userId);
 		bodyInfo.setBodyheight(Double.parseDouble(bodyheight));
 		bodyInfo.setBodyweight(Double.parseDouble(bodyweight));

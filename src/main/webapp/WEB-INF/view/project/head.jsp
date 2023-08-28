@@ -101,7 +101,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="loginModalLabel">Sign In</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-backdrop="true" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- 로그인 폼 -->
@@ -114,20 +114,17 @@
             <label for="password" class="form-label">Password</label>
             <input type="password" class="form-control" name="password">
           </div>
-          <!-- <div class="form-check mb-3">
-            <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe" value="true">
-            <label class="form-check-label" for="rememberMe">Remember me</label>
-          </div> -->
           <button type="submit" class="btn btn-dark">Sign In</button>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-bs-backdrop="true">Close</button>
       </div>
     </div>
   </div>
 </div>
   <script type="text/javascript">
+  /* 검색창 기능 */
   document.querySelector('#searchToggleBtn').addEventListener('click', function(event) {
 	  event.preventDefault();
 	  executeSearch();
@@ -150,7 +147,6 @@
 
   </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </body>
 </html>

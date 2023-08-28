@@ -59,10 +59,6 @@ public class SnsController {
 		} else {
 			sns = snsDao.checkHeart(userId, userId, date);;
 		}
-		System.out.println("-------------------------");
-		for (int i = 0; i < sns.size(); i++) {
-			System.out.println(sns.get(i));
-		}
 		model.addAttribute("searchUserId", searchUserId);
 		model.addAttribute("sns", sns);
 		return "sns/snsContent";
@@ -81,7 +77,6 @@ public class SnsController {
 	    String path = request.getServletContext().getRealPath("/") + "WEB-INF/view/sns/imgs/";
 	    snsContent.setId(userId);
 	    snsContent.setContent(contentText);
-
 	    MultipartFile[] imageFiles = {file1, file2, file3, file4, file5};
 	    for (int i = 0; i < imageFiles.length; i++) {
 	        MultipartFile file = imageFiles[i];
@@ -173,14 +168,6 @@ public class SnsController {
 			@RequestParam(value = "id", required = false) String searchUserId) {
 		List<SnsContent> sns = snsDao.contentInfo(searchUserId);
 		List<SnsContent> test = snsDao.checkHeart(searchUserId, userId);
-		System.out.println("-------------------------");
-		for (int i = 0; i < sns.size(); i++) {
-			System.out.println(sns.get(i));
-		}
-		System.out.println("-------------------------");
-		for (int i = 0; i < test.size(); i++) {
-			System.out.println(test.get(i));
-		}
 		model.addAttribute("searchUserId", searchUserId);
 		model.addAttribute("sns", test);
 		return "sns/searchSns";

@@ -270,13 +270,6 @@ function heart(num) {
     })
 }
 
-
-/* 댓글 엔터키 작동*/
-function enterkey(num) {
-	if(window.event.keyCode == 13) {
-		commentPro(num)
-	}
-}
 /* 댓글 로딩 */
 function commentLoad(num) {
 	let url = `${pageContext.request.contextPath}/sns/snsComment`;
@@ -295,6 +288,14 @@ function commentLoad(num) {
         console.error('데이터 전송 실패:', error);
     });
 }
+
+/* 댓글 엔터키 작동*/
+function enterkey(num) {
+	if(window.event.keyCode == 13) {
+		commentPro(num)
+	}
+}
+
 /* 댓글 등록 */
 function commentPro(num) {
     let comment = document.querySelector("#inputComment" + num).value;

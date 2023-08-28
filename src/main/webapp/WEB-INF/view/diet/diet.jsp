@@ -32,6 +32,7 @@
 	function startSuggest() {
 		setTimeout("sendKeyword()", 500);
 	}
+	
 	function sendKeyword() {
 		let keyword = document.querySelector("#foodName").value
 		if (keyword != '') {
@@ -42,12 +43,14 @@
 			xhttp.onreadystatechange = displayResult
 		}
 	}
+	
 	function displayResult() {
 		if(this.readyState == 4 && this.status == 200) {
 			const listView = document.querySelector("#suggestList")
 			listView.innerHTML = this.responseText
 		}
 	}
+	
 	function putPara(name) {
 		const url = "${pageContext.request.contextPath}/diet/foodName2?foodname="+name;
 		fetch(url)

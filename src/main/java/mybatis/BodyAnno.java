@@ -13,6 +13,6 @@ public interface BodyAnno {
 	@Insert("insert into bodyinfo values (bodyseq.nextval, #{id}, #{bmi}, #{bodyheight}, #{bodyweight}, #{bodyfat}, #{muscul}, sysdate)")
 	public int insertBodyInfo(BodyInfo bodyInfo);
 	
-	@Select("select * from bodyinfo where id = #{id}")
+	@Select("select * from bodyinfo where id = #{id} order by bodydate desc")
 	public List<BodyInfo> bodyInfoList(String id);
 }
